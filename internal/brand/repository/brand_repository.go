@@ -3,12 +3,12 @@ package repository
 import (
 	"context"
 
-	"github.com/aditiapratama1231/graphql-example/graph/model"
+	"github.com/aditiapratama1231/graphql-example/internal/entity"
 	"github.com/jinzhu/gorm"
 )
 
 type BrandRepositoryInterface interface {
-	GetBrands(ctx context.Context) []*model.Brand
+	GetBrands(ctx context.Context) ([]*entity.Brand, error)
 }
 
 type BrandRepository struct {
@@ -21,10 +21,10 @@ func NewBrandRepository(db *gorm.DB) BrandRepositoryInterface {
 	}
 }
 
-func (br BrandRepository) GetBrands(ctx context.Context) []*model.Brand {
-	var brands []*model.Brand
+func (br BrandRepository) GetBrands(ctx context.Context) ([]*entity.Brand, error) {
+	var brands []*entity.Brand
 
 	br.db.Preload("Products").Find(&brands)
 
-	return brands
+	return brands, nil
 }

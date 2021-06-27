@@ -1,7 +1,0 @@
-#import product.graphql
-
-type Brand {
-    id: ID!
-    name: String!
-    products: [Product!]!
-}

@@ -3,8 +3,8 @@ package use_case
 import (
 	"context"
 
-	"github.com/aditiapratama1231/graphql-example/graph/model"
 	"github.com/aditiapratama1231/graphql-example/internal/brand/repository"
+	"github.com/aditiapratama1231/graphql-example/internal/entity"
 )
 
 // brand service
@@ -18,6 +18,10 @@ func NewProductResolver(productRepo repository.BrandRepositoryInterface) Brand {
 	}
 }
 
-func (b Brand) GetBrands(ctx context.Context) []*model.Brand {
-	return b.BrandRepository.GetBrands(ctx)
+func (b Brand) GetBrands(ctx context.Context) ([]*entity.Brand, error) {
+	result, err := b.BrandRepository.GetBrands(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }

@@ -3,7 +3,7 @@ package use_case
 import (
 	"context"
 
-	"github.com/aditiapratama1231/graphql-example/graph/model"
+	"github.com/aditiapratama1231/graphql-example/internal/entity"
 	"github.com/aditiapratama1231/graphql-example/internal/product/repository"
 )
 
@@ -18,10 +18,18 @@ func NewProductResolver(productRepo repository.ProductRepositoryInterface) Produ
 	}
 }
 
-func (p Product) GetProducts(ctx context.Context) []*model.Product {
-	return p.ProductRepository.GetProducts(ctx)
+func (p Product) GetProducts(ctx context.Context) ([]*entity.Product, error) {
+	result, err := p.ProductRepository.GetProducts(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return result, err
 }
 
-func (p Product) GetSingleProduct(ctx context.Context) *model.Product {
-	return p.ProductRepository.GetSingleProduct(ctx)
+func (p Product) GetSingleProduct(ctx context.Context) (*entity.Product, error) {
+	result, err := p.ProductRepository.GetSingleProduct(ctx)
+	if err != nil {
+		return nil, err
+	}
+	return result, nil
 }
