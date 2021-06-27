@@ -28,7 +28,7 @@ First install, you need to run setup.sh
 Run below command to run app server
 
 ```
-go run cmd/product/main.go
+go run cmd/server/main.go
 ```
 
 # Unit Test
